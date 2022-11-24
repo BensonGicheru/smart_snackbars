@@ -13,11 +13,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Smart SnackBars Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Smart SnackBars Demo'),
     );
   }
 }
@@ -32,10 +32,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final int _counter = 0;
-
-  void _incrementCounter() {
-    // CustomToast.showCustomToast(context: context);
+  void showSmartSnackBar() {
     context.showSnackbar(
       title: "This is Title",
       titleStyle: const TextStyle(
@@ -48,16 +45,17 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       trailing: GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: () {
-            context.showToast("Toasting");
-          },
-          child: const Icon(
-            Icons.home,
-            color: Colors.black,
-          )),
-      duration: const Duration(milliseconds: 1000),
-      animationCurve: Curves.bounceOut,
+        behavior: HitTestBehavior.opaque,
+        onTap: () {
+          context.showToast("Toasting");
+        },
+        child: const Icon(
+          Icons.close,
+          color: Colors.white,
+        ),
+      ),
+      duration: const Duration(milliseconds: 1200),
+      animationCurve: Curves.ease,
       animateFrom: AnimateFrom.fromTop,
     );
   }
@@ -65,27 +63,27 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
+      // appBar: AppBar(
+      //   title: Text(widget.title),
+      // ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+            GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: showSmartSnackBar,
+              child: Container(
+                color: Colors.blue,
+                padding: const EdgeInsets.all(8),
+                child: const Text(
+                  "Show Smart SnackBar",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ),
     );
   }

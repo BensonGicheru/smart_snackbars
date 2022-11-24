@@ -38,16 +38,17 @@ context.showSnackbar(
         ),
       ),
       trailing: GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: () {
-            context.showToast("Toasting");
-          },
-          child: const Icon(
-            Icons.home,
-            color: Colors.black,
-          )),
-      duration: const Duration(milliseconds: 1000),
-      animationCurve: Curves.bounceOut,
+        behavior: HitTestBehavior.opaque,
+        onTap: () {
+          context.showToast("Toasting");
+        },
+        child: const Icon(
+          Icons.close,
+          color: Colors.white,
+        ),
+      ),
+      duration: const Duration(milliseconds: 1200),
+      animationCurve: Curves.ease,
       animateFrom: AnimateFrom.fromTop,
     );
 ```
