@@ -16,6 +16,8 @@ class TemplatedSnackbar extends StatefulWidget {
     required this.animationCurve,
     required this.animateFrom,
     required this.elevation,
+    required this.persist,
+    required this.onDismissed,
     this.titleWidget,
     this.subTitleWidget,
     this.leading,
@@ -48,6 +50,9 @@ class TemplatedSnackbar extends StatefulWidget {
   double elevation;
   Color? shadowColor;
 
+  bool persist;
+  VoidCallback onDismissed;
+
   @override
   State<TemplatedSnackbar> createState() => _TemplatedSnackbarState();
 }
@@ -61,13 +66,15 @@ class _TemplatedSnackbarState extends State<TemplatedSnackbar> {
     super.initState();
 
     Future.delayed(const Duration(milliseconds: 0), () {
-      setState(() {
-        if (widget.animateFrom == AnimateFrom.fromBottom) {
-          bottom = 20.0;
-        } else if (widget.animateFrom == AnimateFrom.fromTop) {
-          top = 20.0;
-        }
-      });
+      if (mounted) {
+        setState(() {
+          if (widget.animateFrom == AnimateFrom.fromBottom) {
+            bottom = 20.0;
+          } else if (widget.animateFrom == AnimateFrom.fromTop) {
+            top = 20.0;
+          }
+        });
+      }
     });
   }
 
@@ -82,59 +89,69 @@ class _TemplatedSnackbarState extends State<TemplatedSnackbar> {
       bottom: widget.animateFrom == AnimateFrom.fromBottom ? bottom : null,
       top: widget.animateFrom == AnimateFrom.fromTop ? top : null,
       curve: widget.animationCurve,
-      onEnd: () {
-        Future.delayed(
-          const Duration(milliseconds: 500),
-          () => setState(
-            () {
-              if (widget.animateFrom == AnimateFrom.fromBottom) {
-                bottom = -150;
-              } else if (widget.animateFrom == AnimateFrom.fromTop) {
-                top = -150.0;
-              }
+      onEnd: widget.persist
+          ? () {}
+          : () {
+              Future.delayed(
+                const Duration(milliseconds: 500),
+                () => setState(
+                  () {
+                    if (widget.animateFrom == AnimateFrom.fromBottom) {
+                      bottom = -150;
+                    } else if (widget.animateFrom == AnimateFrom.fromTop) {
+                      top = -150.0;
+                    }
+                  },
+                ),
+              );
             },
-          ),
-        );
-      },
       duration: widget.duration,
       child: SafeArea(
-        child: Container(
-          padding: widget.outerPadding,
-          width: MediaQuery.of(context).size.width,
-          child: Material(
-            borderRadius: widget.borderRadius,
-            color: widget.backgroundColor,
-            elevation: widget.elevation,
-            shadowColor: widget.shadowColor,
-            child: Container(
-              padding: widget.contentPadding,
-              child: Row(
-                children: [
-                  if (widget.leading != null) widget.leading!,
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      widget.title.isNotEmpty
-                          ? Text(
-                              widget.title,
-                              style: widget.titleStyle,
-                            )
-                          : widget.titleWidget != null
-                              ? widget.titleWidget!
-                              : const SizedBox(),
-                      widget.subTitle.isNotEmpty
-                          ? Text(
-                              widget.subTitle,
-                              style: widget.subTitleStyle,
-                            )
-                          : widget.subTitleWidget != null
-                              ? widget.subTitleWidget!
-                              : const SizedBox(),
-                    ],
-                  ),
-                  const Spacer(),
-                  if (widget.trailing != null) widget.trailing!,
-                ],
+        child: Dismissible(
+          key: UniqueKey(),
+          onDismissed: (direction) {
+            if (widget.persist) {
+              widget.onDismissed.call();
+            }
+          },
+          child: Container(
+            padding: widget.outerPadding,
+            width: MediaQuery.of(context).size.width,
+            child: Material(
+              borderRadius: widget.borderRadius,
+              color: widget.backgroundColor,
+              elevation: widget.elevation,
+              shadowColor: widget.shadowColor,
+              child: Container(
+                padding: widget.contentPadding,
+                child: Row(
+                  children: [
+                    if (widget.leading != null) widget.leading!,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        widget.title.isNotEmpty
+                            ? Text(
+                                widget.title,
+                                style: widget.titleStyle,
+                              )
+                            : widget.titleWidget != null
+                                ? widget.titleWidget!
+                                : const SizedBox(),
+                        widget.subTitle.isNotEmpty
+                            ? Text(
+                                widget.subTitle,
+                                style: widget.subTitleStyle,
+                              )
+                            : widget.subTitleWidget != null
+                                ? widget.subTitleWidget!
+                                : const SizedBox(),
+                      ],
+                    ),
+                    const Spacer(),
+                    if (widget.trailing != null) widget.trailing!,
+                  ],
+                ),
               ),
             ),
           ),

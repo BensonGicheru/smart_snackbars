@@ -36,6 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
     //context.showTemplatedSnackbar();
 
     context.showTemplatedSnackbar(
+      persist: true,
       title: "This is Title",
       titleStyle: const TextStyle(
           color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
@@ -66,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // context.showCustomSnackBar(animateFrom: AnimateFrom.fromTop);
 
     context.showCustomSnackBar(
-      elevation: 5,
+      persist: true,
       child: Container(
         decoration: const BoxDecoration(color: Colors.blue),
         padding: const EdgeInsets.symmetric(vertical: 20),

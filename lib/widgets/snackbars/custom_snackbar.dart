@@ -10,6 +10,8 @@ class CustomSnackbar extends StatefulWidget {
     required this.animateFrom,
     required this.childMargin,
     required this.elevation,
+    required this.persist,
+    required this.onDismissed,
     this.shadowColor,
   });
 
@@ -20,6 +22,8 @@ class CustomSnackbar extends StatefulWidget {
   EdgeInsetsGeometry childMargin;
   double elevation;
   Color? shadowColor;
+  bool persist;
+  VoidCallback onDismissed;
 
   @override
   State<CustomSnackbar> createState() => _CustomSnackbarState();
@@ -34,13 +38,15 @@ class _CustomSnackbarState extends State<CustomSnackbar> {
     super.initState();
 
     Future.delayed(const Duration(milliseconds: 0), () {
-      setState(() {
-        if (widget.animateFrom == AnimateFrom.fromBottom) {
-          bottom = 20.0;
-        } else if (widget.animateFrom == AnimateFrom.fromTop) {
-          top = 20.0;
-        }
-      });
+      if (mounted) {
+        setState(() {
+          if (widget.animateFrom == AnimateFrom.fromBottom) {
+            bottom = 20.0;
+          } else if (widget.animateFrom == AnimateFrom.fromTop) {
+            top = 20.0;
+          }
+        });
+      }
     });
   }
 
@@ -55,20 +61,22 @@ class _CustomSnackbarState extends State<CustomSnackbar> {
       bottom: widget.animateFrom == AnimateFrom.fromBottom ? bottom : null,
       top: widget.animateFrom == AnimateFrom.fromTop ? top : null,
       curve: widget.animationCurve,
-      onEnd: () {
-        Future.delayed(
-          const Duration(milliseconds: 500),
-          () => setState(
-            () {
-              if (widget.animateFrom == AnimateFrom.fromBottom) {
-                bottom = -150;
-              } else if (widget.animateFrom == AnimateFrom.fromTop) {
-                top = -150.0;
-              }
+      onEnd: widget.persist
+          ? () {}
+          : () {
+              Future.delayed(
+                const Duration(milliseconds: 500),
+                () => setState(
+                  () {
+                    if (widget.animateFrom == AnimateFrom.fromBottom) {
+                      bottom = -150;
+                    } else if (widget.animateFrom == AnimateFrom.fromTop) {
+                      top = -150.0;
+                    }
+                  },
+                ),
+              );
             },
-          ),
-        );
-      },
       duration: widget.duration,
       child: SafeArea(
         child: Container(
@@ -77,7 +85,15 @@ class _CustomSnackbarState extends State<CustomSnackbar> {
           child: Material(
             elevation: widget.elevation,
             shadowColor: widget.shadowColor,
-            child: widget.child,
+            child: Dismissible(
+              key: UniqueKey(),
+              onDismissed: (direction) {
+                if (widget.persist) {
+                  widget.onDismissed.call();
+                }
+              },
+              child: widget.child,
+            ),
           ),
         ),
       ),

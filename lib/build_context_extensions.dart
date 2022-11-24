@@ -23,13 +23,15 @@ extension ToastExtension on BuildContext {
     AnimateFrom? animateFrom,
     double? elevation,
     Color? shadowColor,
+    bool? persist,
   }) {
     duration ??= const Duration(milliseconds: 1000);
 
     // Get the OverlayState
     final overlayState = Overlay.of(this);
     // Create an OverlayEntry with your custom widget
-    final snackBar = OverlayEntry(
+    OverlayEntry? snackBar;
+    snackBar = OverlayEntry(
       builder: (_) => TemplatedSnackbar(
         title: title ??= "",
         subTitle: subTitle ??= "",
@@ -49,14 +51,27 @@ extension ToastExtension on BuildContext {
         animateFrom: animateFrom ??= AnimateFrom.fromBottom,
         elevation: elevation ??= 0.0,
         shadowColor: shadowColor,
+        persist: persist ??= false,
+        onDismissed: persist!
+            ? () {
+                if (snackBar != null) {
+                  snackBar.remove();
+                }
+              }
+            : () {},
       ),
     );
+
     // then insert it to the overlay
     // this will show the toast widget on the screen
     overlayState!.insert(snackBar);
     // 3 secs later remove the toast from the stack
     // and this one will remove the toast from the screen
-    Future.delayed(duration * 2, snackBar.remove);
+    try {
+      if (persist == null || !persist!) {
+        Future.delayed(duration * 2, snackBar.remove);
+      }
+    } catch (e) {}
   }
 
   void showCustomSnackBar({
@@ -67,13 +82,15 @@ extension ToastExtension on BuildContext {
     EdgeInsetsGeometry? childMargin,
     double? elevation,
     Color? shadowColor,
+    bool? persist,
   }) {
     duration ??= const Duration(milliseconds: 1000);
 
     // Get the OverlayState
     final overlayState = Overlay.of(this);
     // Create an OverlayEntry with your custom widget
-    final snackBar = OverlayEntry(
+    OverlayEntry? snackBar;
+    snackBar = OverlayEntry(
       builder: (_) => CustomSnackbar(
         duration: duration ??= const Duration(milliseconds: 1000),
         animationCurve: animationCurve ??= Curves.ease,
@@ -81,6 +98,14 @@ extension ToastExtension on BuildContext {
         childMargin: childMargin ??= const EdgeInsets.symmetric(horizontal: 10),
         elevation: elevation ??= 0.0,
         shadowColor: shadowColor,
+        persist: persist ??= false,
+        onDismissed: persist!
+            ? () {
+                if (snackBar != null) {
+                  snackBar.remove();
+                }
+              }
+            : () {},
         child: child ??= Container(
           width: MediaQuery.of(this).size.width,
           padding: const EdgeInsets.all(10),
@@ -97,7 +122,12 @@ extension ToastExtension on BuildContext {
     overlayState!.insert(snackBar);
     // 3 secs later remove the toast from the stack
     // and this one will remove the toast from the screen
-    Future.delayed(duration! * 2, snackBar.remove);
+
+    try {
+      if (persist == null || !persist!) {
+        Future.delayed(duration! * 2, snackBar.remove);
+      }
+    } catch (e) {}
   }
 
   void showToast(
