@@ -1,6 +1,6 @@
 name: smart_snackbars
 description: show your user highly costomized SnackBars and Toasts..
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/ToyZ-95/smart_snackbars
 
 environment:
