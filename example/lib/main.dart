@@ -32,8 +32,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  void showSmartSnackBar() {
-    context.showSnackbar(
+  void showTemplatedSnackbar() {
+    //context.showTemplatedSnackbar();
+
+    context.showTemplatedSnackbar(
       title: "This is Title",
       titleStyle: const TextStyle(
           color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
@@ -54,9 +56,52 @@ class _MyHomePageState extends State<MyHomePage> {
           color: Colors.white,
         ),
       ),
-      duration: const Duration(milliseconds: 1200),
+      // duration: const Duration(milliseconds: 1200),
       animationCurve: Curves.ease,
       animateFrom: AnimateFrom.fromTop,
+    );
+  }
+
+  void showCustomSnackBar() {
+    // context.showCustomSnackBar(animateFrom: AnimateFrom.fromTop);
+
+    context.showCustomSnackBar(
+      elevation: 5,
+      child: Container(
+        decoration: const BoxDecoration(color: Colors.blue),
+        padding: const EdgeInsets.symmetric(vertical: 20),
+        child: Row(
+          children: [
+            const SizedBox(
+              width: 5,
+            ),
+            const Icon(
+              Icons.info_outline_rounded,
+              color: Colors.white,
+            ),
+            const SizedBox(width: 10),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                Text(
+                  "Title",
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                ),
+                Text(
+                  "Sub Title",
+                  style: TextStyle(color: Colors.white, fontSize: 14),
+                ),
+              ],
+            ),
+            const Spacer(),
+            const Icon(
+              Icons.close,
+              color: Colors.white,
+            ),
+            const SizedBox(width: 20),
+          ],
+        ),
+      ),
     );
   }
 
@@ -72,12 +117,25 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             GestureDetector(
               behavior: HitTestBehavior.opaque,
-              onTap: showSmartSnackBar,
+              onTap: showCustomSnackBar,
               child: Container(
                 color: Colors.blue,
                 padding: const EdgeInsets.all(8),
                 child: const Text(
-                  "Show Smart SnackBar",
+                  "Show Custom SnackBar",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: showTemplatedSnackbar,
+              child: Container(
+                color: Colors.blue,
+                padding: const EdgeInsets.all(8),
+                child: const Text(
+                  "Show Templated SnackBar",
                   style: TextStyle(color: Colors.white),
                 ),
               ),

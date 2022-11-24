@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:smart_snackbars/enums/animate_from.dart';
 
-class SnackbarWidget extends StatefulWidget {
-  SnackbarWidget({
+class TemplatedSnackbar extends StatefulWidget {
+  TemplatedSnackbar({
     super.key,
     required this.title,
     required this.subTitle,
@@ -15,10 +15,12 @@ class SnackbarWidget extends StatefulWidget {
     required this.borderRadius,
     required this.animationCurve,
     required this.animateFrom,
+    required this.elevation,
     this.titleWidget,
     this.subTitleWidget,
     this.leading,
     this.trailing,
+    this.shadowColor,
   });
 
   String title;
@@ -43,11 +45,14 @@ class SnackbarWidget extends StatefulWidget {
   Curve animationCurve;
   AnimateFrom animateFrom;
 
+  double elevation;
+  Color? shadowColor;
+
   @override
-  State<SnackbarWidget> createState() => _SnackbarWidgetState();
+  State<TemplatedSnackbar> createState() => _TemplatedSnackbarState();
 }
 
-class _SnackbarWidgetState extends State<SnackbarWidget> {
+class _TemplatedSnackbarState extends State<TemplatedSnackbar> {
   double? top = -150;
   double? bottom = -150;
 
@@ -79,14 +84,17 @@ class _SnackbarWidgetState extends State<SnackbarWidget> {
       curve: widget.animationCurve,
       onEnd: () {
         Future.delayed(
-            const Duration(milliseconds: 500),
-            () => setState(() {
-                  if (widget.animateFrom == AnimateFrom.fromBottom) {
-                    bottom = -150;
-                  } else if (widget.animateFrom == AnimateFrom.fromTop) {
-                    top = -150.0;
-                  }
-                }));
+          const Duration(milliseconds: 500),
+          () => setState(
+            () {
+              if (widget.animateFrom == AnimateFrom.fromBottom) {
+                bottom = -150;
+              } else if (widget.animateFrom == AnimateFrom.fromTop) {
+                top = -150.0;
+              }
+            },
+          ),
+        );
       },
       duration: widget.duration,
       child: SafeArea(
@@ -96,6 +104,8 @@ class _SnackbarWidgetState extends State<SnackbarWidget> {
           child: Material(
             borderRadius: widget.borderRadius,
             color: widget.backgroundColor,
+            elevation: widget.elevation,
+            shadowColor: widget.shadowColor,
             child: Container(
               padding: widget.contentPadding,
               child: Row(
