@@ -4,7 +4,7 @@ import 'package:smart_snackbars/widgets/snackbars/custom_snackbar.dart';
 import 'package:smart_snackbars/widgets/snackbars/templated_snackbar.dart';
 import 'package:smart_snackbars/toast_widget.dart';
 
-extension ToastExtension on BuildContext {
+extension SmartSnackarExtension on BuildContext {
   void showTemplatedSnackbar({
     String? title,
     String? subTitle,
@@ -95,7 +95,8 @@ extension ToastExtension on BuildContext {
         duration: duration ??= const Duration(milliseconds: 1000),
         animationCurve: animationCurve ??= Curves.ease,
         animateFrom: animateFrom ??= AnimateFrom.fromBottom,
-        childMargin: childMargin ??= const EdgeInsets.symmetric(horizontal: 10),
+        outerPadding: childMargin ??=
+            const EdgeInsets.symmetric(horizontal: 10),
         elevation: elevation ??= 0.0,
         shadowColor: shadowColor,
         persist: persist ??= false,
@@ -129,7 +130,9 @@ extension ToastExtension on BuildContext {
       }
     } catch (e) {}
   }
+}
 
+extension SmartToastExtension on BuildContext {
   void showToast(
     String text, {
     Duration duration = const Duration(seconds: 3),

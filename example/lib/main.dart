@@ -36,7 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
     //context.showTemplatedSnackbar();
 
     context.showTemplatedSnackbar(
-      persist: true,
+      // persist: true,
       title: "This is Title",
       titleStyle: const TextStyle(
           color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
@@ -69,7 +69,8 @@ class _MyHomePageState extends State<MyHomePage> {
     context.showCustomSnackBar(
       persist: true,
       child: Container(
-        decoration: const BoxDecoration(color: Colors.blue),
+        decoration: BoxDecoration(
+            color: Colors.amber, borderRadius: BorderRadius.circular(20)),
         padding: const EdgeInsets.symmetric(vertical: 20),
         child: Row(
           children: [
@@ -109,9 +110,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text(widget.title),
-      // ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
