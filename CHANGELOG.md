@@ -1,7 +1,11 @@
 ## 0.0.1
 
-- TODO: Describe initial release.
+- Describe initial release.
 
 ## 0.0.2
 
-- TODO: Example Code Updated
+- Example Code Updated
+
+## 1.0.0
+
+- First Stable Release
