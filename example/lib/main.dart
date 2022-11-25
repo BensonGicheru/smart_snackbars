@@ -1,6 +1,5 @@
+import 'package:example/demo_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:smart_snackbars/build_context_extensions.dart';
-import 'package:smart_snackbars/enums/animate_from.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,81 +31,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  void showTemplatedSnackbar() {
-    //context.showTemplatedSnackbar();
-
-    context.showTemplatedSnackbar(
-      // persist: true,
-      title: "This is Title",
-      titleStyle: const TextStyle(
-          color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
-      subTitleWidget: const Padding(
-        padding: EdgeInsets.only(top: 8.0),
-        child: Text(
-          "Subtitle Widget",
-          style: TextStyle(color: Colors.white),
-        ),
-      ),
-      trailing: GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onTap: () {
-          context.showToast("Toasting");
-        },
-        child: const Icon(
-          Icons.close,
-          color: Colors.white,
-        ),
-      ),
-      // duration: const Duration(milliseconds: 1200),
-      animationCurve: Curves.ease,
-      animateFrom: AnimateFrom.fromTop,
-    );
-  }
-
-  void showCustomSnackBar() {
-    // context.showCustomSnackBar(animateFrom: AnimateFrom.fromTop);
-
-    context.showCustomSnackBar(
-      persist: true,
-      child: Container(
-        decoration: BoxDecoration(
-            color: Colors.amber, borderRadius: BorderRadius.circular(20)),
-        padding: const EdgeInsets.symmetric(vertical: 20),
-        child: Row(
-          children: [
-            const SizedBox(
-              width: 5,
-            ),
-            const Icon(
-              Icons.info_outline_rounded,
-              color: Colors.white,
-            ),
-            const SizedBox(width: 10),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text(
-                  "Title",
-                  style: TextStyle(color: Colors.white, fontSize: 16),
-                ),
-                Text(
-                  "Sub Title",
-                  style: TextStyle(color: Colors.white, fontSize: 14),
-                ),
-              ],
-            ),
-            const Spacer(),
-            const Icon(
-              Icons.close,
-              color: Colors.white,
-            ),
-            const SizedBox(width: 20),
-          ],
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -116,12 +40,12 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             GestureDetector(
               behavior: HitTestBehavior.opaque,
-              onTap: showCustomSnackBar,
+              onTap: () => DemoHelper.showTemplatedSnackbar(context),
               child: Container(
                 color: Colors.blue,
                 padding: const EdgeInsets.all(8),
                 child: const Text(
-                  "Show Custom SnackBar",
+                  "Show Templated SnackBar",
                   style: TextStyle(color: Colors.white),
                 ),
               ),
@@ -129,12 +53,25 @@ class _MyHomePageState extends State<MyHomePage> {
             const SizedBox(height: 10),
             GestureDetector(
               behavior: HitTestBehavior.opaque,
-              onTap: showTemplatedSnackbar,
+              onTap: () => DemoHelper.showCustomSnackBar(context),
               child: Container(
                 color: Colors.blue,
                 padding: const EdgeInsets.all(8),
                 child: const Text(
-                  "Show Templated SnackBar",
+                  "Show Dismissible SnackBar",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () => DemoHelper.showStickySnackBar(context),
+              child: Container(
+                color: Colors.blue,
+                padding: const EdgeInsets.all(8),
+                child: const Text(
+                  "Show Sticky SnackBar",
                   style: TextStyle(color: Colors.white),
                 ),
               ),

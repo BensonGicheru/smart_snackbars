@@ -1,5 +1,6 @@
 import 'package:smart_snackbars/widgets/snackbars/base_snackbar.dart';
 
+// ignore: must_be_immutable
 class CustomSnackbar extends BaseSnackBar {
   CustomSnackbar({
     super.key,
@@ -11,6 +12,7 @@ class CustomSnackbar extends BaseSnackBar {
     required elevation,
     required persist,
     required onDismissed,
+    distanceToTravelFromStartToEnd,
     shadowColor,
     borderRadius,
     backgroundColor,
@@ -26,5 +28,6 @@ class CustomSnackbar extends BaseSnackBar {
           shadowColor: shadowColor,
           borderRadius: borderRadius,
           backgroundColor: backgroundColor,
+          distanceToTravelFromStartToEnd: distanceToTravelFromStartToEnd,
         );
 }

@@ -1,5 +1,5 @@
 name: smart_snackbars
-description: show your user highly costomized SnackBars and Toasts..
+description: This package facilitates you to create very highly customized SnackBars and Toasts on the go without caring about overlay.
 version: 0.0.2
 homepage: https://github.com/ToyZ-95/smart_snackbars
 

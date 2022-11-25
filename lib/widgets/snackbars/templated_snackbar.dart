@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smart_snackbars/widgets/snackbars/base_snackbar.dart';
 
+// ignore: must_be_immutable
 class TemplatedSnackbar extends BaseSnackBar {
   TemplatedSnackbar({
     super.key,
@@ -23,6 +24,7 @@ class TemplatedSnackbar extends BaseSnackBar {
     leading,
     trailing,
     shadowColor,
+    distanceToTravelFromStartToEnd,
   }) : super(
           shadowColor: shadowColor,
           duration: duration,
@@ -34,6 +36,7 @@ class TemplatedSnackbar extends BaseSnackBar {
           outerPadding: outerPadding,
           backgroundColor: backgroundColor,
           borderRadius: borderRadius,
+          distanceToTravelFromStartToEnd: distanceToTravelFromStartToEnd,
           child: Container(
             padding: contentPadding,
             child: Row(

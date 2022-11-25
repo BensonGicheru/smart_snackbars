@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:smart_snackbars/enums/animate_from.dart';
 
-class BaseSnackBar extends StatefulWidget {
+// ignore: must_be_immutable
+abstract class BaseSnackBar extends StatefulWidget {
   BaseSnackBar({
     super.key,
     required this.child,
@@ -15,10 +16,10 @@ class BaseSnackBar extends StatefulWidget {
     this.borderRadius,
     this.shadowColor,
     this.backgroundColor,
+    this.distanceToTravelFromStartToEnd,
   });
 
   Widget child;
-
   Duration duration;
   Curve animationCurve;
   AnimateFrom animateFrom;
@@ -30,6 +31,8 @@ class BaseSnackBar extends StatefulWidget {
 
   BorderRadius? borderRadius;
   Color? backgroundColor;
+
+  double? distanceToTravelFromStartToEnd;
 
   @override
   State<BaseSnackBar> createState() => _BaseSnackBarState();
@@ -47,9 +50,9 @@ class _BaseSnackBarState extends State<BaseSnackBar> {
       if (mounted) {
         setState(() {
           if (widget.animateFrom == AnimateFrom.fromBottom) {
-            bottom = 20.0;
+            bottom = widget.distanceToTravelFromStartToEnd;
           } else if (widget.animateFrom == AnimateFrom.fromTop) {
-            top = 20.0;
+            top = widget.distanceToTravelFromStartToEnd;
           }
         });
       }
@@ -85,8 +88,12 @@ class _BaseSnackBarState extends State<BaseSnackBar> {
             },
       duration: widget.duration,
       child: SafeArea(
+        bottom: false,
         child: Dismissible(
           key: UniqueKey(),
+          direction: widget.persist
+              ? DismissDirection.horizontal
+              : DismissDirection.none,
           onDismissed: (direction) {
             if (widget.persist) {
               widget.onDismissed.call();
