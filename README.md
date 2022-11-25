@@ -10,6 +10,7 @@ For general information about developing packages, see the Dart guide for
 and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages).
 -->
+[![pub package](https://img.shields.io/pub/v/smart_snackbars.svg)](https://pub.dev/packages/smart_snackbars)
 
 # Creativity of using this package is endless.
 
