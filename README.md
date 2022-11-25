@@ -11,19 +11,17 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages).
 -->
 
-TODO: This package facilitates you to create very highly customized SnackBars and Toasts on the go without caring about overlay.
+This package facilitates you to create very highly customized SnackBars and Toasts on the go without caring about overlay.
 
 ## Features
 
-TODO: We will upload gifs soon.
+![](https://github.com/ToyZ-95/smart_snackbars/blob/master/example/assets/smart_snackbars_gif.gif)
 
 ## Getting started
 
-TODO: Just add dependency of smart_snackbars and boom you can show SnackBars and Toasts using just Build Context's extention methods (Don't worry we will add a useful example soon).
+Just add dependency of smart_snackbars and boom you can show SnackBars and Toasts using just Build Context's extention methods (Don't worry we will add a useful example soon).
 
 ## Usage
-
-TODO:
 
 ```dart
 context.showSnackbar(
@@ -55,4 +53,4 @@ context.showSnackbar(
 
 ## Additional information
 
-TODO: We will be more than happy of your contributions.
+We will be more than happy of your contributions.
