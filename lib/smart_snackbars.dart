@@ -82,7 +82,6 @@ class SmartSnackBars {
     }
   }
 
-  ///Creates highly customized snackbar.
   static void showCustomSnackBar({
     required BuildContext context,
     Widget? child,

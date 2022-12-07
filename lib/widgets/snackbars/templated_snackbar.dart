@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smart_snackbars/widgets/snackbars/base_snackbar.dart';
 
+/// A widget to create default styled smart snackbar.
 // ignore: must_be_immutable
 class TemplatedSnackbar extends BaseSnackBar {
   TemplatedSnackbar({

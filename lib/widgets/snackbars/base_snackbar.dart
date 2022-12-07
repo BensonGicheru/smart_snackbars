@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smart_snackbars/enums/animate_from.dart';
 
+/// An abstract widget to create a smart snackbar.
 // ignore: must_be_immutable
 abstract class BaseSnackBar extends StatefulWidget {
   BaseSnackBar({
