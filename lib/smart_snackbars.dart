@@ -141,6 +141,6 @@ class SmartSnackBars {
       Future.delayed(duration! * 2, snackBar.remove);
     }
 
-    return overlayEntry;
+    return snackBar;
   }
 }
