@@ -12,7 +12,7 @@ class SmartSnackBars {
   }
 
   ///Creates snackbar with predefined template.
-  static void showTemplatedSnackbar({
+  static OverlayEntry showTemplatedSnackbar({
     required BuildContext context,
     String? title,
     String? subTitle,
@@ -80,9 +80,11 @@ class SmartSnackBars {
     if (persist == null || !persist!) {
       Future.delayed(duration * 2, snackBar.remove);
     }
+    
+    return snackBar;
   }
 
-  static void showCustomSnackBar({
+  static OverlayEntry showCustomSnackBar({
     required BuildContext context,
     Widget? child,
     Duration? duration,
@@ -138,5 +140,7 @@ class SmartSnackBars {
     if (persist == null || !persist!) {
       Future.delayed(duration! * 2, snackBar.remove);
     }
+
+    return overlayEntry;
   }
 }
