@@ -74,11 +74,15 @@ class SmartSnackBars {
 
     // then insert it to the overlay
     // this will show the toast widget on the screen
-    overlayState!.insert(snackBar);
+    overlayState.insert(snackBar);
     // 3 secs later remove the toast from the stack
     // and this one will remove the toast from the screen
     if (persist == null || !persist!) {
-      Future.delayed(duration * 2, snackBar.remove);
+      Future.delayed(duration * 2, () => {
+        if(snackBar != null && snackBar.mounted) {
+          snackBar.remove()
+        }
+      });
     }
     
     return snackBar;
