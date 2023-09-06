@@ -67,6 +67,13 @@ class _BaseSnackBarState extends State<BaseSnackBar> {
 
   @override
   Widget build(BuildContext context) {
+    int animationDuration = 2000;
+    int widgetDuration = widget.duration.inMilliseconds.toInt();
+    bool widgetDurationGreaterThanAnimationDuration = true;
+    if(widgetDuration < animationDuration) {
+      animationDuration = widgetDuration;
+      widgetDurationGreaterThanAnimationDuration = false;
+    }
     return AnimatedPositioned(
       bottom: widget.animateFrom == AnimateFrom.fromBottom ? bottom : null,
       top: widget.animateFrom == AnimateFrom.fromTop ? top : null,
@@ -75,7 +82,11 @@ class _BaseSnackBarState extends State<BaseSnackBar> {
           ? () {}
           : () {
               Future.delayed(
-                const Duration(milliseconds: 500),
+                Duration(
+                    milliseconds: !widgetDurationGreaterThanAnimationDuration
+                        ? 500
+                        : ((widgetDuration + 500) - animationDuration)
+                ),
                 () => setState(
                   () {
                     if (widget.animateFrom == AnimateFrom.fromBottom) {
@@ -87,7 +98,7 @@ class _BaseSnackBarState extends State<BaseSnackBar> {
                 ),
               );
             },
-      duration: const Duration(milliseconds: 1000),
+      duration: Duration(milliseconds: animationDuration),
       child: SafeArea(
         bottom: false,
         child: Dismissible(
