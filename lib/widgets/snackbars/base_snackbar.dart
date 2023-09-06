@@ -44,6 +44,13 @@ class _BaseSnackBarState extends State<BaseSnackBar> {
   double? bottom = -150;
 
   @override
+  void setState(VoidCallback callback) {
+    if(mounted) {
+      super.setState(callback);
+    }
+  }
+
+  @override
   void initState() {
     super.initState();
 
