@@ -87,7 +87,7 @@ class _BaseSnackBarState extends State<BaseSnackBar> {
                 ),
               );
             },
-      duration: widget.duration,
+      duration: const Duration(milliseconds: 1000),
       child: SafeArea(
         bottom: false,
         child: Dismissible(
