@@ -41,17 +41,12 @@ class SmartSnackBars {
     // Create an OverlayEntry with your custom widget
     OverlayEntry? snackBar;
     snackBar = OverlayEntry(
-      builder: (_) => Dismissible(
-          key: Key(UniqueKey().toString()),
-          onDismissed: persist
-              ? (DismissDirection dismissDirection) {
-            if (snackBar != null) {
+      builder: (_) => GestureDetector(
+          onHorizontalDragEnd: (details) {
+            if (details.primaryVelocity! > 0 && !persist && snackBar != null) {
               _removeOverlayEntry(snackBar);
             }
-          }
-              : (DismissDirection dismissDirection) {},
-          direction: DismissDirection.horizontal,
-          crossAxisEndOffset: 0.0,
+          },
           child: TemplatedSnackbar(
             title: title ??= "",
             subTitle: subTitle ??= "",
@@ -73,7 +68,7 @@ class SmartSnackBars {
             shadowColor: shadowColor,
             distanceToTravelFromStartToEnd: distanceToTravel ??= 20,
             persist: persist,
-            onDismissed: persist
+            onDismissed: !persist
                 ? () {
               if (snackBar != null) {
                 _removeOverlayEntry(snackBar);
@@ -119,17 +114,12 @@ class SmartSnackBars {
     // Create an OverlayEntry with your custom widget
     OverlayEntry? snackBar;
     snackBar = OverlayEntry(
-      builder: (_) => Dismissible(
-          key: Key(UniqueKey().toString()),
-          onDismissed: persist
-              ? (DismissDirection dismissDirection) {
-                  if (snackBar != null) {
-                    _removeOverlayEntry(snackBar);
-                  }
-                }
-              : (DismissDirection dismissDirection) {},
-          direction: DismissDirection.horizontal,
-          crossAxisEndOffset: 0.0,
+      builder: (_) => GestureDetector(
+          onHorizontalDragEnd: (details) {
+            if (details.primaryVelocity! > 0 && !persist && snackBar != null) {
+              _removeOverlayEntry(snackBar);
+            }
+          },
           child: CustomSnackbar(
             duration: duration ??= const Duration(milliseconds: 1000),
             animationCurve: animationCurve ??= Curves.ease,
@@ -140,7 +130,7 @@ class SmartSnackBars {
             shadowColor: shadowColor,
             persist: persist,
             distanceToTravelFromStartToEnd: distanceToTravel ??= 20,
-            onDismissed: persist
+            onDismissed: !persist
                 ? () {
               if (snackBar != null) {
                 _removeOverlayEntry(snackBar);
