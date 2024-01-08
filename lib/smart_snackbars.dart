@@ -107,32 +107,43 @@ class SmartSnackBars {
     // Create an OverlayEntry with your custom widget
     OverlayEntry? snackBar;
     snackBar = OverlayEntry(
-      builder: (_) => CustomSnackbar(
-        duration: duration ??= const Duration(milliseconds: 1000),
-        animationCurve: animationCurve ??= Curves.ease,
-        animateFrom: animateFrom ??= AnimateFrom.fromBottom,
-        outerPadding: outerPadding ??=
-            const EdgeInsets.symmetric(horizontal: 10),
-        elevation: elevation ??= 0.0,
-        shadowColor: shadowColor,
-        persist: persist ??= false,
-        distanceToTravelFromStartToEnd: distanceToTravel ??= 20,
-        onDismissed: persist!
-            ? () {
-                if (snackBar != null) {
-                  _removeOverlayEntry(snackBar);
+      builder: (_) => Dismissible(
+          key: Key(UniqueKey().toString()),
+          onDismissed: persist!
+              ? (DismissDirection dismissDirection) {
+                  if (snackBar != null) {
+                    _removeOverlayEntry(snackBar);
+                  }
                 }
+              : (DismissDirection dismissDirection) {},
+          direction: DismissDirection.horizontal,
+          child: CustomSnackbar(
+            duration: duration ??= const Duration(milliseconds: 1000),
+            animationCurve: animationCurve ??= Curves.ease,
+            animateFrom: animateFrom ??= AnimateFrom.fromBottom,
+            outerPadding: outerPadding ??=
+            const EdgeInsets.symmetric(horizontal: 10),
+            elevation: elevation ??= 0.0,
+            shadowColor: shadowColor,
+            persist: persist ??= false,
+            distanceToTravelFromStartToEnd: distanceToTravel ??= 20,
+            onDismissed: persist!
+                ? () {
+              if (snackBar != null) {
+                _removeOverlayEntry(snackBar);
               }
-            : () {},
-        child: child ??= Container(
-          width: MediaQuery.of(context).size.width,
-          padding: const EdgeInsets.all(10),
-          color: Colors.blue,
-          child: const Text(
-            "Create Your Custom SnackBar",
-            style: TextStyle(color: Colors.white, fontSize: 16),
-          ),
-        ),
+            }
+                : () {},
+            child: child ??= Container(
+              width: MediaQuery.of(context).size.width,
+              padding: const EdgeInsets.all(10),
+              color: Colors.blue,
+              child: const Text(
+                "Create Your Custom SnackBar",
+                style: TextStyle(color: Colors.white, fontSize: 16),
+              ),
+            ),
+          )
       ),
     );
     // then insert it to the overlay
