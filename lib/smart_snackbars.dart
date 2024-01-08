@@ -43,7 +43,7 @@ class SmartSnackBars {
     snackBar = OverlayEntry(
       builder: (_) => Dismissible(
           key: Key(UniqueKey().toString()),
-          onDismissed: persist!
+          onDismissed: persist
               ? (DismissDirection dismissDirection) {
             if (snackBar != null) {
               _removeOverlayEntry(snackBar);
@@ -51,6 +51,7 @@ class SmartSnackBars {
           }
               : (DismissDirection dismissDirection) {},
           direction: DismissDirection.horizontal,
+          crossAxisEndOffset: 0.0,
           child: TemplatedSnackbar(
             title: title ??= "",
             subTitle: subTitle ??= "",
@@ -71,8 +72,8 @@ class SmartSnackBars {
             elevation: elevation ??= 0.0,
             shadowColor: shadowColor,
             distanceToTravelFromStartToEnd: distanceToTravel ??= 20,
-            persist: persist ??= false,
-            onDismissed: persist!
+            persist: persist,
+            onDismissed: persist
                 ? () {
               if (snackBar != null) {
                 _removeOverlayEntry(snackBar);
@@ -88,7 +89,7 @@ class SmartSnackBars {
     overlayState.insert(snackBar);
     // 3 secs later remove the toast from the stack
     // and this one will remove the toast from the screen
-    if (persist == null || !persist!) {
+    if (!persist) {
       Future.delayed(duration * 2, () => {
         if(snackBar != null && snackBar.mounted) {
           snackBar.remove()
@@ -108,7 +109,7 @@ class SmartSnackBars {
     EdgeInsetsGeometry? outerPadding,
     double? elevation,
     Color? shadowColor,
-    bool? persist,
+    bool persist = false,
     double? distanceToTravel,
   }) {
     duration ??= const Duration(milliseconds: 1000);
@@ -120,7 +121,7 @@ class SmartSnackBars {
     snackBar = OverlayEntry(
       builder: (_) => Dismissible(
           key: Key(UniqueKey().toString()),
-          onDismissed: persist!
+          onDismissed: persist
               ? (DismissDirection dismissDirection) {
                   if (snackBar != null) {
                     _removeOverlayEntry(snackBar);
@@ -128,6 +129,7 @@ class SmartSnackBars {
                 }
               : (DismissDirection dismissDirection) {},
           direction: DismissDirection.horizontal,
+          crossAxisEndOffset: 0.0,
           child: CustomSnackbar(
             duration: duration ??= const Duration(milliseconds: 1000),
             animationCurve: animationCurve ??= Curves.ease,
@@ -136,9 +138,9 @@ class SmartSnackBars {
             const EdgeInsets.symmetric(horizontal: 10),
             elevation: elevation ??= 0.0,
             shadowColor: shadowColor,
-            persist: persist ??= false,
+            persist: persist,
             distanceToTravelFromStartToEnd: distanceToTravel ??= 20,
-            onDismissed: persist!
+            onDismissed: persist
                 ? () {
               if (snackBar != null) {
                 _removeOverlayEntry(snackBar);
@@ -163,7 +165,7 @@ class SmartSnackBars {
     // 3 secs later remove the toast from the stack
     // and this one will remove the toast from the screen
 
-    if (persist == null || !persist!) {
+    if (!persist) {
       Future.delayed(duration! * 2, snackBar.remove);
     }
 
