@@ -41,34 +41,45 @@ class SmartSnackBars {
     // Create an OverlayEntry with your custom widget
     OverlayEntry? snackBar;
     snackBar = OverlayEntry(
-      builder: (_) => TemplatedSnackbar(
-        title: title ??= "",
-        subTitle: subTitle ??= "",
-        titleStyle: titleStyle ??= const TextStyle(color: Colors.white),
-        subTitleStyle: subTitleStyle ??= const TextStyle(color: Colors.white),
-        titleWidget: titleWidget,
-        subTitleWidget: subTitleWidget,
-        leading: leading,
-        trailing: trailing,
-        backgroundColor: backgroundColor ??= Colors.blue,
-        duration: duration!,
-        contentPadding: contentPadding ??= const EdgeInsets.all(20),
-        borderRadius: borderRadius ??= BorderRadius.circular(10),
-        animationCurve: animationCurve ??= Curves.ease,
-        outerPadding: outerPadding ??=
+      builder: (_) => Dismissible(
+          key: Key(UniqueKey().toString()),
+          onDismissed: persist!
+              ? (DismissDirection dismissDirection) {
+            if (snackBar != null) {
+              _removeOverlayEntry(snackBar);
+            }
+          }
+              : (DismissDirection dismissDirection) {},
+          direction: DismissDirection.horizontal,
+          child: TemplatedSnackbar(
+            title: title ??= "",
+            subTitle: subTitle ??= "",
+            titleStyle: titleStyle ??= const TextStyle(color: Colors.white),
+            subTitleStyle: subTitleStyle ??= const TextStyle(color: Colors.white),
+            titleWidget: titleWidget,
+            subTitleWidget: subTitleWidget,
+            leading: leading,
+            trailing: trailing,
+            backgroundColor: backgroundColor ??= Colors.blue,
+            duration: duration!,
+            contentPadding: contentPadding ??= const EdgeInsets.all(20),
+            borderRadius: borderRadius ??= BorderRadius.circular(10),
+            animationCurve: animationCurve ??= Curves.ease,
+            outerPadding: outerPadding ??=
             const EdgeInsets.symmetric(horizontal: 10),
-        animateFrom: animateFrom ??= AnimateFrom.fromBottom,
-        elevation: elevation ??= 0.0,
-        shadowColor: shadowColor,
-        distanceToTravelFromStartToEnd: distanceToTravel ??= 20,
-        persist: persist ??= false,
-        onDismissed: persist!
-            ? () {
-                if (snackBar != null) {
-                  _removeOverlayEntry(snackBar);
-                }
+            animateFrom: animateFrom ??= AnimateFrom.fromBottom,
+            elevation: elevation ??= 0.0,
+            shadowColor: shadowColor,
+            distanceToTravelFromStartToEnd: distanceToTravel ??= 20,
+            persist: persist ??= false,
+            onDismissed: persist!
+                ? () {
+              if (snackBar != null) {
+                _removeOverlayEntry(snackBar);
               }
-            : () {},
+            }
+                : () {},
+          )
       ),
     );
 
