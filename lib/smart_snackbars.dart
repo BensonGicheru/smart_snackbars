@@ -41,12 +41,17 @@ class SmartSnackBars {
     // Create an OverlayEntry with your custom widget
     OverlayEntry? snackBar;
     snackBar = OverlayEntry(
-      builder: (_) => GestureDetector(
-          onHorizontalDragEnd: (details) {
-            if (details.primaryVelocity! > 0 && !persist && snackBar != null) {
+      builder: (_) => Dismissible(
+          key: Key(UniqueKey().toString()),
+          onDismissed: !persist
+              ? (_) {
+            if (snackBar != null) {
               _removeOverlayEntry(snackBar);
             }
-          },
+          }
+              : (_) {}
+          ,
+          direction: DismissDirection.horizontal,
           child: TemplatedSnackbar(
             title: title ??= "",
             subTitle: subTitle ??= "",
@@ -114,12 +119,17 @@ class SmartSnackBars {
     // Create an OverlayEntry with your custom widget
     OverlayEntry? snackBar;
     snackBar = OverlayEntry(
-      builder: (_) => GestureDetector(
-          onHorizontalDragEnd: (details) {
-            if (details.primaryVelocity! > 0 && !persist && snackBar != null) {
+      builder: (_) => Dismissible(
+          key: Key(UniqueKey().toString()),
+          onDismissed: !persist
+              ? (_) {
+            if (snackBar != null) {
               _removeOverlayEntry(snackBar);
             }
-          },
+          }
+              : (_) {}
+          ,
+          direction: DismissDirection.horizontal,
           child: CustomSnackbar(
             duration: duration ??= const Duration(milliseconds: 1000),
             animationCurve: animationCurve ??= Curves.ease,

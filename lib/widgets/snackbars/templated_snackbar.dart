@@ -44,6 +44,7 @@ class TemplatedSnackbar extends BaseSnackBar {
               children: [
                 if (leading != null) leading!,
                 Column(
+                  mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     title.isNotEmpty
