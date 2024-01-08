@@ -41,6 +41,7 @@ class TemplatedSnackbar extends BaseSnackBar {
           child: Container(
             padding: contentPadding,
             child: Row(
+              mainAxisSize: MainAxisSize.max,
               children: [
                 if (leading != null) leading!,
                 Column(
