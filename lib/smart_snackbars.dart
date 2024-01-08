@@ -31,7 +31,7 @@ class SmartSnackBars {
     AnimateFrom? animateFrom,
     double? elevation,
     Color? shadowColor,
-    bool? persist,
+    bool persist = false,
     double? distanceToTravel,
   }) {
     duration ??= const Duration(milliseconds: 1000);
