@@ -40,7 +40,6 @@ class TemplatedSnackbar extends BaseSnackBar {
           distanceToTravelFromStartToEnd: distanceToTravelFromStartToEnd,
           child: Container(
             padding: contentPadding,
-            alignment: Alignment.topCenter,
             child: Row(
               children: [
                 if (leading != null) leading!,

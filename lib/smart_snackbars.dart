@@ -41,41 +41,37 @@ class SmartSnackBars {
     // Create an OverlayEntry with your custom widget
     OverlayEntry? snackBar;
     snackBar = OverlayEntry(
-      builder: (_) => GestureDetector(
-          onHorizontalDragEnd: (details) {
-            if (details.primaryVelocity! > 0 && !persist && snackBar != null) {
+      builder: (_) => Positioned(
+        top: 0,
+        child: TemplatedSnackbar(
+          title: title ??= "",
+          subTitle: subTitle ??= "",
+          titleStyle: titleStyle ??= const TextStyle(color: Colors.white),
+          subTitleStyle: subTitleStyle ??= const TextStyle(color: Colors.white),
+          titleWidget: titleWidget,
+          subTitleWidget: subTitleWidget,
+          leading: leading,
+          trailing: trailing,
+          backgroundColor: backgroundColor ??= Colors.blue,
+          duration: duration!,
+          contentPadding: contentPadding ??= const EdgeInsets.all(20),
+          borderRadius: borderRadius ??= BorderRadius.circular(10),
+          animationCurve: animationCurve ??= Curves.ease,
+          outerPadding: outerPadding ??=
+          const EdgeInsets.symmetric(horizontal: 10),
+          animateFrom: animateFrom ??= AnimateFrom.fromBottom,
+          elevation: elevation ??= 0.0,
+          shadowColor: shadowColor,
+          distanceToTravelFromStartToEnd: distanceToTravel ??= 20,
+          persist: persist,
+          onDismissed: !persist
+              ? () {
+            if (snackBar != null) {
               _removeOverlayEntry(snackBar);
             }
-          },
-          child: TemplatedSnackbar(
-            title: title ??= "",
-            subTitle: subTitle ??= "",
-            titleStyle: titleStyle ??= const TextStyle(color: Colors.white),
-            subTitleStyle: subTitleStyle ??= const TextStyle(color: Colors.white),
-            titleWidget: titleWidget,
-            subTitleWidget: subTitleWidget,
-            leading: leading,
-            trailing: trailing,
-            backgroundColor: backgroundColor ??= Colors.blue,
-            duration: duration!,
-            contentPadding: contentPadding ??= const EdgeInsets.all(20),
-            borderRadius: borderRadius ??= BorderRadius.circular(10),
-            animationCurve: animationCurve ??= Curves.ease,
-            outerPadding: outerPadding ??=
-            const EdgeInsets.symmetric(horizontal: 10),
-            animateFrom: animateFrom ??= AnimateFrom.fromBottom,
-            elevation: elevation ??= 0.0,
-            shadowColor: shadowColor,
-            distanceToTravelFromStartToEnd: distanceToTravel ??= 20,
-            persist: persist,
-            onDismissed: !persist
-                ? () {
-              if (snackBar != null) {
-                _removeOverlayEntry(snackBar);
-              }
-            }
-                : () {},
-          )
+          }
+              : () {},
+        ),
       ),
     );
 

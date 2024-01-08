@@ -110,13 +110,9 @@ class _BaseSnackBarState extends State<BaseSnackBar> {
         bottom: false,
         child: Dismissible(
           key: UniqueKey(),
-          direction: widget.persist
-              ? DismissDirection.horizontal
-              : DismissDirection.none,
+          direction: DismissDirection.horizontal,
           onDismissed: (direction) {
-            if (widget.persist) {
-              widget.onDismissed.call();
-            }
+            widget.onDismissed.call();
           },
           child: Container(
             padding: widget.outerPadding,
