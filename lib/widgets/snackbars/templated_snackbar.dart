@@ -6,6 +6,7 @@ import 'package:smart_snackbars/widgets/snackbars/base_snackbar.dart';
 class TemplatedSnackbar extends BaseSnackBar {
   TemplatedSnackbar({
     super.key,
+    required context,
     required title,
     required subTitle,
     required titleStyle,
@@ -39,33 +40,35 @@ class TemplatedSnackbar extends BaseSnackBar {
           borderRadius: borderRadius,
           distanceToTravelFromStartToEnd: distanceToTravelFromStartToEnd,
           child: Container(
+            width: MediaQuery.of(context).size.width,
             padding: contentPadding,
             child: Row(
               children: [
                 if (leading != null) leading!,
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    title.isNotEmpty
-                        ? Text(
-                            title,
-                            style: titleStyle,
-                          )
-                        : titleWidget != null
+                Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        title.isNotEmpty
+                            ? Text(
+                          title,
+                          style: titleStyle,
+                        )
+                            : titleWidget != null
                             ? titleWidget!
                             : const SizedBox(),
-                    subTitle.isNotEmpty
-                        ? Text(
-                            subTitle,
-                            style: subTitleStyle,
-                          )
-                        : subTitleWidget != null
+                        subTitle.isNotEmpty
+                            ? Text(
+                          subTitle,
+                          style: subTitleStyle,
+                        )
+                            : subTitleWidget != null
                             ? subTitleWidget!
                             : const SizedBox(),
-                  ],
+                      ],
+                    )
                 ),
-                const Spacer(),
                 if (trailing != null) trailing!,
               ],
             ),

@@ -42,6 +42,7 @@ class SmartSnackBars {
     OverlayEntry? snackBar;
     snackBar = OverlayEntry(
       builder: (_) => TemplatedSnackbar(
+        context: context,
         title: title ??= "",
         subTitle: subTitle ??= "",
         titleStyle: titleStyle ??= const TextStyle(color: Colors.white),
