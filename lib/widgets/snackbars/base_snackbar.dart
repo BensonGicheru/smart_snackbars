@@ -6,6 +6,7 @@ import 'package:smart_snackbars/enums/animate_from.dart';
 abstract class BaseSnackBar extends StatefulWidget {
   BaseSnackBar({
     super.key,
+    required this.context,
     required this.child,
     required this.duration,
     required this.animationCurve,
@@ -20,6 +21,7 @@ abstract class BaseSnackBar extends StatefulWidget {
     this.distanceToTravelFromStartToEnd,
   });
 
+  BuildContext context;
   Widget child;
   Duration duration;
   Curve animationCurve;
@@ -116,7 +118,7 @@ class _BaseSnackBarState extends State<BaseSnackBar> {
           },
           child: Container(
             padding: widget.outerPadding,
-            width: MediaQuery.of(context).size.width,
+            width: MediaQuery.of(widget.context).size.width,
             child: Material(
               borderRadius: widget.borderRadius,
               color: widget.backgroundColor,

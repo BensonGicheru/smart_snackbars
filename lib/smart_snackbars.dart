@@ -109,6 +109,7 @@ class SmartSnackBars {
     OverlayEntry? snackBar;
     snackBar = OverlayEntry(
       builder: (_) => CustomSnackbar(
+        context: context,
         duration: duration ??= const Duration(milliseconds: 1000),
         animationCurve: animationCurve ??= Curves.ease,
         animateFrom: animateFrom ??= AnimateFrom.fromBottom,

@@ -28,6 +28,7 @@ class TemplatedSnackbar extends BaseSnackBar {
     shadowColor,
     distanceToTravelFromStartToEnd,
   }) : super(
+          context: context,
           shadowColor: shadowColor,
           duration: duration,
           animationCurve: animationCurve,
