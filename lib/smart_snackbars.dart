@@ -33,6 +33,7 @@ class SmartSnackBars {
     Color? shadowColor,
     bool persist = false,
     double? distanceToTravel,
+    DismissDirection? dismissDirection
   }) {
     duration ??= const Duration(milliseconds: 1000);
 
@@ -63,6 +64,7 @@ class SmartSnackBars {
         shadowColor: shadowColor,
         distanceToTravelFromStartToEnd: distanceToTravel ??= 20,
         persist: persist,
+        dismissDirection: dismissDirection,
         onDismissed: !persist
             ? () {
           if (snackBar != null) {
@@ -100,6 +102,7 @@ class SmartSnackBars {
     Color? shadowColor,
     bool persist = false,
     double? distanceToTravel,
+    DismissDirection? dismissDirection
   }) {
     duration ??= const Duration(milliseconds: 1000);
 
@@ -119,6 +122,7 @@ class SmartSnackBars {
         shadowColor: shadowColor,
         persist: persist,
         distanceToTravelFromStartToEnd: distanceToTravel ??= 20,
+        dismissDirection: dismissDirection,
         onDismissed: !persist
             ? () {
           if (snackBar != null) {
