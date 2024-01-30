@@ -13,6 +13,7 @@ abstract class BaseSnackBar extends StatefulWidget {
     required this.animateFrom,
     required this.elevation,
     required this.persist,
+    this.dismissDirection,
     required this.onDismissed,
     required this.outerPadding,
     this.borderRadius,
@@ -29,6 +30,7 @@ abstract class BaseSnackBar extends StatefulWidget {
   double elevation;
   Color? shadowColor;
   bool persist;
+  DismissDirection? dismissDirection;
   VoidCallback onDismissed;
   EdgeInsetsGeometry outerPadding;
 
@@ -112,7 +114,7 @@ class _BaseSnackBarState extends State<BaseSnackBar> {
         bottom: false,
         child: Dismissible(
           key: UniqueKey(),
-          direction: DismissDirection.horizontal,
+          direction: widget.dismissDirection ?? DismissDirection.horizontal,
           onDismissed: (direction) {
             widget.onDismissed.call();
           },
