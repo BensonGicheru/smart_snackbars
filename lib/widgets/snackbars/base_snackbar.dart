@@ -88,6 +88,8 @@ class _BaseSnackBarState extends State<BaseSnackBar> {
     return AnimatedPositioned(
       bottom: widget.animateFrom == AnimateFrom.fromBottom ? bottom : null,
       top: widget.animateFrom == AnimateFrom.fromTop ? top : null,
+      left: 0.0,
+      right: 0.0,
       curve: widget.animationCurve,
       onEnd: widget.persist
           ? () {}
