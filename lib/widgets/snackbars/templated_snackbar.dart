@@ -6,7 +6,7 @@ import 'package:smart_snackbars/widgets/snackbars/base_snackbar.dart';
 class TemplatedSnackbar extends BaseSnackBar {
   TemplatedSnackbar({
     super.key,
-    required context,
+    required screenWidth,
     required title,
     required subTitle,
     required titleStyle,
@@ -29,7 +29,7 @@ class TemplatedSnackbar extends BaseSnackBar {
     shadowColor,
     distanceToTravelFromStartToEnd,
   }) : super(
-          context: context,
+          screenWidth: screenWidth,
           shadowColor: shadowColor,
           duration: duration,
           animationCurve: animationCurve,
@@ -43,7 +43,7 @@ class TemplatedSnackbar extends BaseSnackBar {
           borderRadius: borderRadius,
           distanceToTravelFromStartToEnd: distanceToTravelFromStartToEnd,
           child: Container(
-            width: MediaQuery.of(context).size.width,
+            width: screenWidth,
             padding: contentPadding,
             child: Row(
               children: [
