@@ -5,7 +5,7 @@ import 'package:smart_snackbars/widgets/snackbars/base_snackbar.dart';
 class CustomSnackbar extends BaseSnackBar {
   CustomSnackbar({
     super.key,
-    required context,
+    required screenWidth,
     required child,
     required duration,
     required animationCurve,
@@ -20,7 +20,7 @@ class CustomSnackbar extends BaseSnackBar {
     borderRadius,
     backgroundColor,
   }) : super(
-          context: context,
+          screenWidth: screenWidth,
           child: child,
           duration: duration,
           animationCurve: animationCurve,

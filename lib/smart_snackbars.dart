@@ -14,6 +14,7 @@ class SmartSnackBars {
   ///Creates snackbar with predefined template.
   static OverlayEntry showTemplatedSnackbar({
     required BuildContext context,
+    required double? screenWidth,
     String? title,
     String? subTitle,
     TextStyle? titleStyle,
@@ -43,7 +44,7 @@ class SmartSnackBars {
     OverlayEntry? snackBar;
     snackBar = OverlayEntry(
       builder: (_) => TemplatedSnackbar(
-        context: context,
+        screenWidth: screenWidth,
         title: title ??= "",
         subTitle: subTitle ??= "",
         titleStyle: titleStyle ??= const TextStyle(color: Colors.white),
@@ -93,6 +94,7 @@ class SmartSnackBars {
 
   static OverlayEntry showCustomSnackBar({
     required BuildContext context,
+    required double? screenWidth,
     Widget? child,
     Duration? duration,
     Curve? animationCurve,
@@ -112,7 +114,7 @@ class SmartSnackBars {
     OverlayEntry? snackBar;
     snackBar = OverlayEntry(
       builder: (_) => CustomSnackbar(
-        context: context,
+        screenWidth: screenWidth,
         duration: duration ??= const Duration(milliseconds: 1000),
         animationCurve: animationCurve ??= Curves.ease,
         animateFrom: animateFrom ??= AnimateFrom.fromBottom,
